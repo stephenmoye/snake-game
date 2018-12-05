@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snek</title>
+</head>
+
+<body>
+    <div id="score">Score: 0</div>
+    <div id="speed">Speed: 0</div>
+    <canvas id="game" width="600" height="600"></canvas>
+
+    <style>
+        #game {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #speed {
+            display: block;
+            text-align: center;
+            font-size: 32px;
+            font-family: sans-serif;
+        }
+
+        #score {
+            display: block;
+            text-align: center;
+            font-size: 72px;
+            font-family: sans-serif;
+        }
+    </style>
+    <script src="snek.js"></script>
+
+</body>
+
+</html>
