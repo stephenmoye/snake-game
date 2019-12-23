@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Snake JS</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Snek</title>
-</head>
-
-<body>
-    <div id="score">Score: 0</div>
-    <div id="speed">Speed: 0</div>
-    <canvas id="game" width="600" height="600"></canvas>
-
+  <body>
+    <div class="game">
+      <div class="screen">
+        <div id="score">0</div>
+        <canvas id="game" width="350" height="250"></canvas>
+      </div>
+    </div>
     <style>
-        #game {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        #speed {
-            display: block;
-            text-align: center;
-            font-size: 32px;
-            font-family: sans-serif;
-        }
-
-        #score {
-            display: block;
-            text-align: center;
-            font-size: 72px;
-            font-family: sans-serif;
-        }
+      .game {
+        background-color: #323e67;
+        width: 425px;
+        height: 75vh;
+        margin: auto;
+        padding-top: 175px;
+        border-radius: 30% 30% 20% 20%;
+      }      
+      /* #game {
+        padding: 10px;
+      } */
+      .screen {
+        background-color: #95c838;
+        width: 375px;
+        margin: auto;
+      }
+      .screen canvas {
+          text-align: center;
+      }
+      #score {
+        font-size: 32px;
+        font-family: monospace;
+        padding-left: 5px;
+        border-bottom: 3px solid #375013;
+        margin: 10px;
+      }
     </style>
     <script src="snek.js"></script>
-
-</body>
-
+  </body>
 </html>

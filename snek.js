@@ -2,8 +2,8 @@ let gameCanvas = document.getElementById("game");
 let ctx = gameCanvas.getContext("2d");
 
 // CANVAS STYLES
-const CANVAS_BORDER_COLOR = "black";
-const CANVAS_BG_COLOR = "white";
+const CANVAS_BORDER_COLOR = "#375013";
+const CANVAS_BG_COLOR = "#95c838";
 ctx.fillStyle = CANVAS_BG_COLOR;
 ctx.strokeStyle = CANVAS_BORDER_COLOR;
 
@@ -12,17 +12,14 @@ ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 /////////////////
 
 // SNAKE STUFF
-const SNAKE_COLOR = "lightgreen";
-const SNAKE_BORDER_COLOR = "darkgreen";
+const SNAKE_COLOR = "#375013";
+const SNAKE_BORDER_COLOR = CANVAS_BG_COLOR;
 
 let snake = [
   { x: 150, y: 150 },
   { x: 140, y: 150 },
   { x: 130, y: 150 },
-  { x: 120, y: 150 },
-  { x: 110, y: 150 },
-  { x: 100, y: 150 },
-  { x: 90, y: 150 }
+  { x: 120, y: 150 }
 ];
 
 // Horizontal velocity
@@ -31,7 +28,7 @@ let dx = 10;
 let dy = 0;
 
 let score = 0;
-let speed = 100;
+let speed = 144;
 
 // Snake color rendering
 function drawSnakePart(snakePart) {
@@ -55,9 +52,9 @@ function moveSnake() {
   const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
   if (didEatFood) {
     score += 1;
-    speed -= 5;
-    document.getElementById("score").innerHTML = "Score: " + score;
-    document.getElementById("speed").innerHTML = "Speed: " + speed;
+    speed += 5;
+    document.getElementById("score").innerHTML = score;
+    // document.getElementById("speed").innerHTML = "Speed: " + (speed);
     createFood();
   } else {
     // pop removes last element of snake array
@@ -66,8 +63,7 @@ function moveSnake() {
 }
 ///////////////
 
-// food stuffs
-
+// food location randomizer
 function randomTen(min, max) {
   return Math.round((Math.random() * (max - min) + min) / 10) * 10;
 }
@@ -81,12 +77,11 @@ function createFood() {
 }
 
 function drawFood() {
-  ctx.fillStyle = "red";
-  ctx.strokestyle = "darkred";
+  ctx.fillStyle = SNAKE_COLOR;
+  // ctx.strokestyle = CANVAS_BG_COLOR;
   ctx.fillRect(foodX, foodY, 10, 10);
-  ctx.strokeRect(foodX, foodY, 10, 10);
+  // ctx.strokeRect(foodX, foodY, 10, 10);
 }
-
 //////////////
 
 function gameOver() {
@@ -145,7 +140,7 @@ document.addEventListener("keydown", changeDirection);
 
 // animation functions
 function clearCanvas() {
-  ctx.fillStyle = "white";
+  ctx.fillStyle = CANVAS_BG_COLOR;
   ctx.strokeStyle = "black";
 
   ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
