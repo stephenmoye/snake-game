@@ -28,7 +28,7 @@ let dx = 10;
 let dy = 0;
 
 let score = 0;
-let speed = 144;
+let speed = 100;
 
 // Snake color rendering
 function drawSnakePart(snakePart) {
@@ -148,7 +148,9 @@ function clearCanvas() {
 }
 
 function main() {
-  if (gameOver()) return;
+  if (gameOver()) { 
+    return console.log("game over") ;
+  }
 
   setTimeout(function onTick() {
     changingDirection = false;

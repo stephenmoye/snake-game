@@ -8,6 +8,19 @@
   </head>
 
   <body>
+    <div class="text">
+      <h1>
+        Classic<br />
+        Snake
+      </h1>
+      <p>
+          Press &lt;space&gt;<br> to start
+      </p>
+      <p>
+          Arrow keys<br>
+          control snake
+        </p>
+    </div>
     <div class="game">
       <div class="screen">
         <div id="score">0</div>
@@ -15,13 +28,20 @@
       </div>
     </div>
     <style>
+      body {
+        margin: 0;
+        box-sizing: border-box;
+        height: 100vh;
+        overflow: hidden;
+      }
       .game {
-        background-color: #323e67;
-        width: 425px;
-        height: 75vh;
+        width: 530px;
+        height: 100%;
         margin: auto;
         padding-top: 175px;
-        border-radius: 30% 30% 20% 20%;
+        background-image: url("phone.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
       }
       .screen {
         background-color: #95c838;
@@ -35,6 +55,12 @@
         display: block;
         border: 2px solid #375013;
       }
+      .text {
+        font-family: monospace;
+        font-size: 64px;
+        padding: 2rem;
+        position: absolute;
+      }
       #score {
         font-size: 32px;
         font-family: monospace;
@@ -43,6 +69,8 @@
         margin: 10px;
       }
     </style>
+    <!-- <img src="phone.svg"/> -->
     <script src="snek.js"></script>
+    1
   </body>
 </html>
