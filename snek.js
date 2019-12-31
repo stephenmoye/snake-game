@@ -9,7 +9,52 @@ ctx.strokeStyle = CANVAS_BORDER_COLOR;
 
 ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
-/////////////////
+
+// key bindings and events
+function startGame(event) {
+  const SPACE_BAR = 32;
+  if (event.keyCode == SPACE_BAR && gameOver()){
+    console.log("game is over");
+  } else {
+    console.log("else")
+  }
+}
+function changeDirection(event) {
+  const LEFT_KEY = 37;
+  const RIGHT_KEY = 39;
+  const UP_KEY = 38;
+  const DOWN_KEY = 40;
+
+  if (changingDirection) return;
+  changingDirection = true;
+
+  const keyPressed = event.keyCode;
+  const up = dy === -10;
+  const down = dy === 10;
+  const right = dx === 10;
+  const left = dx === -10;
+
+  if (keyPressed === LEFT_KEY && !right) {
+    dx = -10;
+    dy = 0;
+  }
+
+  if (keyPressed === UP_KEY && !up) {
+    dx = 0;
+    dy = -10;
+  }
+
+  if (keyPressed === RIGHT_KEY && !left) {
+    dx = 10;
+    dy = 0;
+  }
+
+  if (keyPressed === DOWN_KEY && !down) {
+    dx = 0;
+    dy = 10;
+  }
+}
+document.addEventListener("keydown", changeDirection);
 
 // SNAKE STUFF
 const SNAKE_COLOR = "#375013";
@@ -46,13 +91,13 @@ function drawSnake() {
 
 function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-  // unshift adds to start of array returns new length
+  // unshift adds to start of array returns new length, creating movement
   snake.unshift(head);
 
   const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
   if (didEatFood) {
     score += 1;
-    speed += 5;
+    // speed += 5;
     document.getElementById("score").innerHTML = score;
     // document.getElementById("speed").innerHTML = "Speed: " + (speed);
     createFood();
@@ -99,46 +144,10 @@ function gameOver() {
   return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
 }
 
-// key bindings and events
-function changeDirection(event) {
-  const LEFT_KEY = 37;
-  const RIGHT_KEY = 39;
-  const UP_KEY = 38;
-  const DOWN_KEY = 40;
 
-  if (changingDirection) return;
-  changingDirection = true;
-
-  const keyPressed = event.keyCode;
-  const up = dy === -10;
-  const down = dy === 10;
-  const right = dx === 10;
-  const left = dx === -10;
-
-  if (keyPressed === LEFT_KEY && !right) {
-    dx = -10;
-    dy = 0;
-  }
-
-  if (keyPressed === UP_KEY && !up) {
-    dx = 0;
-    dy = -10;
-  }
-
-  if (keyPressed === RIGHT_KEY && !left) {
-    dx = 10;
-    dy = 0;
-  }
-
-  if (keyPressed === DOWN_KEY && !down) {
-    dx = 0;
-    dy = 10;
-  }
-}
-document.addEventListener("keydown", changeDirection);
 //////////////////////////
 
-// animation functions
+// clears canvas after each loop, creates look of movement
 function clearCanvas() {
   ctx.fillStyle = CANVAS_BG_COLOR;
   ctx.strokeStyle = "black";
