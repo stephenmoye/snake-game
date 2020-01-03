@@ -13,12 +13,13 @@ ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 // key bindings and events
 function startGame(event) {
   const SPACE_BAR = 32;
-  if (event.keyCode == SPACE_BAR && gameOver()){
-    console.log("game is over");
+  if (event.keyCode === SPACE_BAR) {
+    
   } else {
-    console.log("else")
   }
 }
+document.addEventListener("keydown", startGame);
+
 function changeDirection(event) {
   const LEFT_KEY = 37;
   const RIGHT_KEY = 39;
@@ -67,9 +68,7 @@ let snake = [
   { x: 120, y: 150 }
 ];
 
-// Horizontal velocity
 let dx = 10;
-// Vertical velocity
 let dy = 0;
 
 let score = 0;
@@ -91,18 +90,17 @@ function drawSnake() {
 
 function moveSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-  // unshift adds to start of array returns new length, creating movement
+  // add to start of array, update length, create movement
   snake.unshift(head);
 
   const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
   if (didEatFood) {
     score += 1;
-    // speed += 5;
     document.getElementById("score").innerHTML = score;
     // document.getElementById("speed").innerHTML = "Speed: " + (speed);
     createFood();
   } else {
-    // pop removes last element of snake array
+    // removes last element of snake array
     snake.pop();
   }
 }
@@ -127,13 +125,21 @@ function drawFood() {
   ctx.fillRect(foodX, foodY, 10, 10);
   // ctx.strokeRect(foodX, foodY, 10, 10);
 }
-//////////////
 
+function destroy() {
+  ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+}
+
+
+//////////////
+let gameIsOver = false;
 function gameOver() {
   for (i = 4; i < snake.length; i++) {
     const didCollide = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
-
-    if (didCollide) return true;
+    if (didCollide) {
+      gameIsOver += true;
+      clearCanvas();
+    }
   }
 
   const hitLeftWall = snake[0].x < 0;
@@ -143,7 +149,6 @@ function gameOver() {
 
   return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
 }
-
 
 //////////////////////////
 
@@ -157,12 +162,14 @@ function clearCanvas() {
 }
 
 function main() {
-  if (gameOver()) { 
-    return console.log("game over") ;
+  if (gameOver()) {
+    destroy();
+    return
   }
 
   setTimeout(function onTick() {
     changingDirection = false;
+    gameOver();
     clearCanvas();
     drawFood();
     moveSnake();
