@@ -119,11 +119,12 @@ function drawFood() {
 
 function startGame(event) {
   const SPACE_BAR = 32;
-  if (event.keyCode === SPACE_BAR) {
+  if (event.keyCode === SPACE_BAR && gameIsOver) {
     console.log("space");
     gameIsOver = false;
     main();
   } else {
+
   }
 }
 document.addEventListener("keydown", startGame);
@@ -134,8 +135,8 @@ function gameOver() {
   for (i = 4; i < snake.length; i++) {
     const didCollide = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
     if (didCollide) {
-      console.log("ow");
-      gameIsOver += true;
+      gameIsOver = true;
+      return true;
     }
   }
 
@@ -160,21 +161,24 @@ function clearCanvas() {
 
 function main() {
   if (gameOver()) {
+    gameIsOver = true;
     return;
   }
-  changingDirection = false;
+
   setTimeout(function onTick() {
+    changingDirection = false;
     if (gameIsOver === false) {
       clearCanvas();
-      drawFood();
       moveSnake();
       drawSnake();
-
+      drawFood();
       main();
+    } else {
+      drawSnake();
+      drawFood();
     }
   }, speed);
 }
-
 createFood();
 main();
 ///////////////////////
