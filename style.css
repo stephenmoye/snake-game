@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: hidden;
+}
+.game {
+  width: 530px;
+  height: 100%;
+  margin: auto;
+  padding-top: 175px;
+  background-image: url("phone.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.screen {
+  background-color: #95c838;
+  width: 375px;
+  margin: auto;
+  padding-bottom: 10px;
+}
+.screen canvas {
+  margin: auto;
+  width: 350px;
+  display: block;
+  border: 2px solid #375013;
+}
+.text {
+  font-family: monospace;
+  font-size: 48px;
+  padding: 2rem;
+  position: absolute;
+}
+#score {
+  font-size: 32px;
+  font-family: monospace;
+  padding-left: 5px;
+  border-bottom: 3px solid #375013;
+  margin: 10px;
+}
