@@ -51,19 +51,30 @@ document.addEventListener("keydown", changeDirection);
 // SNAKE STUFF
 const SNAKE_COLOR = "#375013";
 const SNAKE_BORDER_COLOR = CANVAS_BG_COLOR;
-
 let snake = [
   { x: 150, y: 150 },
   { x: 140, y: 150 },
   { x: 130, y: 150 },
   { x: 120, y: 150 }
 ];
+let dx;
+let dy;
+let score;
+let speed;
 
-let dx = 10;
-let dy = 0;
+function initGame() {
+  snake = [
+    { x: 150, y: 150 },
+    { x: 140, y: 150 },
+    { x: 130, y: 150 },
+    { x: 120, y: 150 }
+  ];
+  dx = 10;
+  dy = 0;
 
-let score = 0;
-let speed = 100;
+  score = 0;
+  speed = 100;
+}
 
 // Snake color rendering
 function drawSnakePart(snakePart) {
@@ -86,9 +97,8 @@ function moveSnake() {
 
   const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
   if (didEatFood) {
-    score += 1;
+    score++;
     document.getElementById("score").innerHTML = score;
-    // document.getElementById("speed").innerHTML = "Speed: " + (speed);
     createFood();
   } else {
     // removes last element of snake array
@@ -120,11 +130,11 @@ function drawFood() {
 function startGame(event) {
   const SPACE_BAR = 32;
   if (event.keyCode === SPACE_BAR && gameIsOver) {
-    console.log("space");
+    initGame();
     gameIsOver = false;
+    document.getElementById("score").innerHTML = 0;
     main();
   } else {
-
   }
 }
 document.addEventListener("keydown", startGame);
@@ -173,6 +183,7 @@ function main() {
       drawSnake();
       drawFood();
       main();
+      console.log(gameIsOver);
     } else {
       drawSnake();
       drawFood();
