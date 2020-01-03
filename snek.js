@@ -10,16 +10,7 @@ ctx.strokeStyle = CANVAS_BORDER_COLOR;
 ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 
-// key bindings and events
-function startGame(event) {
-  const SPACE_BAR = 32;
-  if (event.keyCode === SPACE_BAR) {
-    
-  } else {
-  }
-}
-document.addEventListener("keydown", startGame);
-
+// events
 function changeDirection(event) {
   const LEFT_KEY = 37;
   const RIGHT_KEY = 39;
@@ -126,19 +117,25 @@ function drawFood() {
   // ctx.strokeRect(foodX, foodY, 10, 10);
 }
 
-function destroy() {
-  ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+function startGame(event) {
+  const SPACE_BAR = 32;
+  if (event.keyCode === SPACE_BAR) {
+    console.log("space");
+    gameIsOver = false;
+    main();
+  } else {
+  }
 }
-
+document.addEventListener("keydown", startGame);
 
 //////////////
-let gameIsOver = false;
+let gameIsOver = true;
 function gameOver() {
   for (i = 4; i < snake.length; i++) {
     const didCollide = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
     if (didCollide) {
+      console.log("ow");
       gameIsOver += true;
-      clearCanvas();
     }
   }
 
@@ -163,21 +160,21 @@ function clearCanvas() {
 
 function main() {
   if (gameOver()) {
-    destroy();
-    return
+    return;
   }
-
+  changingDirection = false;
   setTimeout(function onTick() {
-    changingDirection = false;
-    gameOver();
-    clearCanvas();
-    drawFood();
-    moveSnake();
-    drawSnake();
-    // loop main
-    main();
+    if (gameIsOver === false) {
+      clearCanvas();
+      drawFood();
+      moveSnake();
+      drawSnake();
+
+      main();
+    }
   }, speed);
 }
+
 createFood();
 main();
 ///////////////////////
